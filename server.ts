@@ -1,7 +1,30 @@
-Bun.serve({
-  port: process.env.PORT || 8080,
-  fetch(req) {
-    console.log(`Request: ${req.url}`);
-    return new Response('Hello World!');
-  },
-});
+import Env from './core/env';
+import {info, log} from './core/logger';
+import Routes from './core/urls';
+
+export default function server() {
+  info('Starting server...');
+  const server = Bun.serve({
+    port: Env.get('PORT') || 8080,
+    fetch(req) {
+      const pathname = new URL(req.url).pathname;
+
+      if (Routes[pathname]) {
+        const res = Routes[pathname][0](req);
+        log(
+          `[${new Date().toLocaleString()}] "${req.method} ${pathname}" ${res.status} ${res.body?.values.length ?? 0}`,
+        );
+        return res;
+      }
+
+      log(`[${new Date().toLocaleString()}] "${req.method} ${pathname}" 404}`);
+
+      return new Response('404 Not found', {
+        status: 404,
+        headers: {'content-type': 'text/plain'},
+      });
+    },
+  });
+
+  info(`Server listening on ${server.url}`);
+}
