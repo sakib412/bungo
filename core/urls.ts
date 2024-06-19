@@ -1,7 +1,4 @@
-import {log} from './logger';
-
-function home(req: Request) {
-  log('from home', req.url, 'home');
+function home(_req: Request) {
   return new Response('Hello, world!', {
     headers: {'content-type': 'text/plain'},
   });
