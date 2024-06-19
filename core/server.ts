@@ -11,7 +11,7 @@ export default function server() {
 
       if (Routes[pathname]) {
         const res = Routes[pathname][0](req);
-        log(
+        info(
           `[${new Date().toLocaleString()}] "${req.method} ${pathname}" ${res.status} ${res.body?.values.length ?? 0}`,
         );
         return res;
