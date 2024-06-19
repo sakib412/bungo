@@ -16,13 +16,14 @@ const Routes: Record<string, Route> = {
       return new Response(
         JSON.stringify({
           message: 'This is the about page.',
-          requestPath: req.url,
+          requestPath: req.text(),
         }),
         {
           headers: {'content-type': 'application/json'},
         },
       );
     },
+    'about',
   ],
 };
 

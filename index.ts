@@ -1,3 +1,3 @@
-import server from './server';
+import server from './core/server';
 
 server();

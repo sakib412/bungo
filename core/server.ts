@@ -1,6 +1,6 @@
-import Env from './core/env';
-import {info, log} from './core/logger';
-import Routes from './core/urls';
+import Env from './env';
+import {info, log} from './logger';
+import Routes from './urls';
 
 export default function server() {
   info('Starting server...');
@@ -17,7 +17,7 @@ export default function server() {
         return res;
       }
 
-      log(`[${new Date().toLocaleString()}] "${req.method} ${pathname}" 404}`);
+      log(`[${new Date().toLocaleString()}] "${req.method} ${pathname}" 404`);
 
       return new Response('404 Not found', {
         status: 404,
